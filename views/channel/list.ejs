@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      table {
+        border-collapse: collapse;
+      }   
+      th, td {
+        text-align: center;
+        border: 1px solid #dddddd;
+        padding: 8px;
+      } 
+      a {
+        display: block;
+        padding: 10px;
+      }
+
+      .create {
+        margin: 20px;
+      }
+    </style>
+    <title>channel - list</title>
+  </head>
+  <body>
+    <h1>channel - list</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>채널Id</th>
+          <th>채널명</th>
+          <th>채널설명</th>
+          <th>정원</th>
+          <th colspan="2">관리</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% channelList.forEach(channel => { %>
+          <tr>
+            <td><%=channel.channel_id%></td>
+            <td><%=channel.channel_name%></td>
+            <td><%=channel.channel_desc%></td>
+            <td><%=channel.user_limit%></td>
+            <td><a href="/channel/modify">수정</a></td>
+            <td><a href="/channel/delete">삭제</a></td>
+        </tr>
+          <% }) %>
+      </tbody>
+    </table>
+    <a class="create" href="/channel/create">채널 생성</a>
+  </body>
+</html>

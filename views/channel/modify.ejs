@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        margin: 50px;
+      }
+
+      input {
+        margin: 10px;
+      }
+
+      button {
+        padding: 10px;
+      }
+    </style>
+    <title>channel - modify</title>
+  </head>
+  <body>
+    <h1>channel - modify</h1>
+    <form action="/channel/modify" method="post">
+      채널id: <input type="text" name="channel_id" value="1" disabled /> <br />
+      채널명: <input type="text" name="channel_name" value="오름캠프 채널" required /><br />
+      채널설명: <input type="text" name="channel_desc" value="자바스크립트 스터디 채팅" required /><br />
+      정원: <input type="text" name="user_limit" value="5" required /><br />
+      <button type="submit">수정하기</button>
+    </form>
+  </body>
+</html>
