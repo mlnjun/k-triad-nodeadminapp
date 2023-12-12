@@ -1,0 +1,73 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+#back {
+  background-color: #fff;
+  padding: 20px;
+  margin: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#backline {
+  text-align: center;
+}
+
+.link {
+  text-align: center;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 10px 250px;
+}
+
+a:hover {
+  color: rgba(0,0,0,0.4);
+}
+
+h1 {
+  color: #333;
+}
+
+#intro {
+  color: #555;
+}
+
+h2 {
+  color: #333;
+  margin-top: 30px;
+}
+
+.burgers {
+  display: inline-block;
+  margin: 20px;
+  text-align: center;
+}
+
+.burger {
+  width: 200px;
+  height: 150px;
+  border-radius: 5px;
+}
+
+.burger_intro {
+  color: #777;
+}
+
+p {
+  margin: 10px 0;
+  color: #555;
+}
+
+.burger_name {
+  font-size: 17px;
+  font-weight: 600;
+}
