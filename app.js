@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
+var adminRouter = require('./routes/admin');
 var articleRouter = require('./routes/article');
 var channelRouter = require('./routes/channel');
 const memberRouter = require('./routes/member');
@@ -24,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'views')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.use('/admin', adminRouter);
 app.use('/article', articleRouter);
 app.use('/channel', channelRouter);
 app.use('/member', memberRouter);
