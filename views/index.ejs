@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>관리자 메인</title>
+
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1>관리자 메인</h1>
+    <a href="/login">로그인 하기</a>
+    <div>
+      <p>
+      <a href="/admin/list">admin정보</a>
+      <a href="/article/list">게시글 관리</a>
+      <a href="/member/list">user 계정 관리</a>
+      <a href="/channel/list">채팅방 정보 관리</a>
+      <a href="/message/list">채팅 메시지 관리</a>
+    </p>
+    </div>
   </body>
 </html>

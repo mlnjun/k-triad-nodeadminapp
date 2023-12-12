@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>관리자 계정 정보</title>
+  </head>
+
+
+  <body>
+    <h1>관리자 계정</h1>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>PW</th>
+          <th>이름</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%for (var i=0; i<adminMember.length; i++) { %>
+        <tr>
+          <td><%=adminMember[i].adminId%></td>
+          <td><%=adminMember[i].adminPassword%></td>
+          <td><%=adminMember[i].adminName%></td>
+          <th><a href="/admin/modify/<%=adminMember[i].adminId%>">수정</a></th>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+
+    <br/>
+
+    <a href="/admin/create">새admin 생성</a>
+    
+    <br/>
+    <a href="/">관리자 메인 페이지</a>
+  </body>
+</html>

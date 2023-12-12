@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>관리자 계정 수정</title>
+  </head>
+
+
+  <body>
+    <h1>관리자 계정 수정</h1>
+    <form action="/admin/modify/<%=adminMember.adminName%>" method="post"><br/>
+      ID : <input type="text" name="aid" value="<%=adminMember.adminId%>"><br/>
+      PW : <input type="password" name="apassword" value="<%=adminMember.adminPassword%>"><br/>
+      name : <input type="text" name="aname" value="<%=adminMember.adminName%>"><br/>
+      <input type="submit" value="수정">
+      <a href="/admin/delete">삭제</a>
+    </form>
+  </body>
+</html>
