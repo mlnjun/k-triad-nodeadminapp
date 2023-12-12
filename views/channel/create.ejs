@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        margin: 50px;
+      }
+
+      input {
+        margin: 10px;
+      }
+
+      button {
+        padding: 10px;
+      }
+    </style>
+    <title>channel - create</title>
+  </head>
+  <body>
+    <h1>channel - create</h1>
+    <form action="/channel/create" method="post">
+      채널id: <input type="text" name="channel_id" value="1" disabled /> <br />
+      채널명: <input type="text" name="channel_name" required /><br />
+      채널설명: <input type="text" name="channel_desc" required /><br />
+      정원: <input type="text" name="user_limit" required /><br />
+      <button type="submit">채널생성</button>
+    </form>
+  </body>
+</html>

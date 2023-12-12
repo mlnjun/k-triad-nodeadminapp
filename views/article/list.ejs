@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      table {
+        border-collapse: collapse;
+      }   
+      th, td {
+        text-align: center;
+        border: 1px solid #dddddd;
+        padding: 8px;
+      } 
+      a {
+        display: block;
+        padding: 10px;
+      }
+
+      .create {
+        margin: 20px;
+      }
+    </style>
+    <title>article - list</title>
+  </head>
+  <body>
+    <h1>article - list</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>articleId</th>
+          <th>제목</th>
+          <th>내용</th>
+          <th>조회수</th>
+          <th colspan="2">관리</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% articles.forEach(article => { %>
+          <tr>
+            <td><%=article.article_id%></td>
+            <td><%=article.title%></td>
+            <td><%=article.contents%></td>
+            <td><%=article.view_count%></td>
+            <td><a href="/article/modify">수정</a></td>
+            <td><a href="/article/delete">삭제</a></td>
+        </tr>
+          <% }) %>
+      </tbody>
+    </table>
+    <a class="create" href="/article/create">글 생성</a>
+  </body>
+</html>
