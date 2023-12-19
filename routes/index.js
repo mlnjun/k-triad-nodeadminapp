@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 -호출 주소 : http://localhost:3001/login
 */
 router.get('/login', async(req,res)=>{
-  res.render('login');
+  res.render('login', { layout: false });
 });
 
 
@@ -29,15 +29,34 @@ router.post('/login',async(req,res)=>{
   var adminPassword = req.body.apassword;
   var adminName = req.body.aname;
 
-  var adminMember = [
+  var admin_member = [
     {
-      adminId,
-      adminPassword,
-      adminName
+      admin_id:"asd123",
+      admin_password:"asd123",
+      admin_name:'A',
+      email:"asd123@gmail.com",
+      reg_date:Date.now(),
+      company_code:1
+    },
+    {
+      admin_id:"qwe456",
+      admin_password:"qwe456",
+      admin_name:'B',
+      email:"asd123@gmail.com",
+      reg_date:Date.now(),
+      company_code:2
+    },
+    {
+      admin_id:"zxc123",
+      admin_password:"zxc123",
+      admin_name:'C',
+      email:"asd123@gmail.com",
+      reg_date:Date.now(),
+      company_code:1
     }
   ]
 
-  res.redirect('/');
+  res.redirect('http://localhost:3001');
 });
 
 

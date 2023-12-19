@@ -1,16 +1,248 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>채팅 메시지 목록</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <%- meta %>
+
+    <title>INSPINIA | Main view</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!--추가 스타일-->
+
 </head>
+
 <body>
-  <h1>채팅 메시지 목록</h1>
-  <ul>
-    <li>메시지 1</li>
-    <li>메시지 2</li>
-    <li>메시지 3</li>
-  </ul>
+
+    <div id="wrapper">
+
+        <!--좌측 메뉴 영역-->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="block m-t-xs font-bold">Example user</span>
+                                <span class="text-muted text-xs block">menu <b class="caret"></b></span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a class="dropdown-item" href="/login">Logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                    <li class="active">
+                        <a href="/admin/list"><i class="fa fa-th-large"></i> <span class="nav-label">admin</span></a>
+                    </li>
+                    <li>
+                        <a href="/article/list"><i class="fa fa-th-large"></i> <span class="nav-label">게시판</span> </a>
+                    </li>
+                    <li>
+                        <a href="/channel/list"><i class="fa fa-th-large"></i> <span class="nav-label">채팅 채널</span> </a>
+                    </li>
+                    <li>
+                        <a href="/message/list"><i class="fa fa-th-large"></i> <span class="nav-label">메세지</span> </a>
+                    </li>
+                    <li>
+                        <a href="/member/list"><i class="fa fa-th-large"></i> <span class="nav-label">사용자 정보</span> </a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <!--우측 영역-->
+        <div id="page-wrapper" class="gray-bg">
+
+            <!--우측 상단 영역 -->
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i
+                                class="fa fa-bars"></i> </a>
+                        <form role="search" class="navbar-form-custom" method="post" action="#">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search for something..." class="form-control"
+                                    name="top-search" id="top-search">
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <a href="/login">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+
+            <!--우측 상단 헤더 영역 -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>채팅 메시지 관리</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/">Home > </a>
+                        </li>
+                        <li>
+                            <a>채팅 메시지 관리 > </a>
+                        </li>
+                        <li class="active">
+                            <strong>조회</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+            <!--우측 콘텐츠 영역 -->
+            <div class="wrapper wrapper-content">
+
+
+                <!-- 조회 옵션 -->
+                <div class="ibox-content m-b-sm border-bottom">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="OrderNo">메세지 유형</label>
+                                <select class="form-control">
+                                  <!-- board_type_code -->
+                                  <option value="0">선택</option>
+                                  <option value="1">고정 메세지</option>
+                                  <option value="2">일반 메세지</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="OrderName">별명</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="OrderName">메세지 상태</label>
+                                <select class="form-control">
+                                  <!-- article_type_code -->
+                                    <option value="0">선택</option>
+                                    <option value="1">읽음</option>
+                                    <option value="2">안읽음</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary">조회</button>
+                        <a href="/message/create" class="btn btn-info">신규</a>
+                    </div>
+                </div>
+
+                <!-- 리스트 -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <div class="table-responsive">
+
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="10%">별명</th>
+                                                <th width="20%">내용</th>
+                                                <th width="10%">아이디</th>
+                                                <th width="10%">아이피 주소</th>
+                                                <th width="10%">메세지 유형</th>
+                                                <th width="10%">메세지 상태</th>
+                                                <th width="10%">등록일</th>
+                                            </tr>
+                                        </thead>
+
+                                    
+                                        <tbody class="hoverTblBody">
+                                            <% for(let i=0; i<channel_msg.length; i++) { %>
+                                            <tr>
+                                                <td><%=channel_msg[i].nick_name%></td>
+                                                <td><a href="/message/modify/<%=channel_msg[i].channel_msg_id%>"><%=channel_msg[i].channel_msg%></a></td>
+                                                <td><%=channel_msg[i].connection_id%></td>
+                                                <td><%=channel_msg[i].ip_address%></td>
+                                                <td>
+                                                    <% if (channel_msg[i].msg_type_code === "1") {%>
+                                                        고정 메세지
+                                                    <%}%>
+                                                    <% if (channel_msg[i].msg_type_code === "2") {%>
+                                                        일반 메세지
+                                                    <%}%>
+                                                </td>
+                                                <td>
+                                                    <% if (channel_msg[i].msg_state_code === "1") {%>
+                                                        사용중
+                                                    <%}%>
+                                                    <% if (channel_msg[i].msg_state_code === "2") {%>
+                                                        탈퇴
+                                                    <%}%>
+                                                </td>
+                                                <td><%=channel_msg[i].msgDate%></td>
+                                            </tr>
+                                            <% } %>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+            
+            <!--우측 하단 풋터 영역-->
+            <div class="footer">
+                <div class="pull-right">
+                    10GB of <strong>250GB</strong> Free.
+                </div>
+                <div>
+                    <strong>Copyright</strong> Example Company &copy; 2014-2018
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="/js/inspinia.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
+
+
+    <!--추가 스크립트-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <%- script %>
+
 </body>
+
 </html>
