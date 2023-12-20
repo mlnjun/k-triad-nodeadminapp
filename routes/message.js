@@ -1,17 +1,18 @@
-
 const express = require('express');
 const router = express.Router();
 
 router.get('/list', (req, res) => {
-  res.render('message/list');
+  const messages = [];
+  res.render('message/list', { messages });
 });
+
 
 router.get('/create', (req, res) => {
   res.render('message/create');
 });
 
-router.post('/create', (req, res) => {
 
+router.post('/create', (req, res) => {
   res.redirect('/message/list');
 });
 
@@ -20,12 +21,14 @@ router.get('/modify', (req, res) => {
 });
 
 router.post('/modify', (req, res) => {
-
   res.redirect('/message/list');
 });
 
 router.get('/delete', (req, res) => {
+  res.render('message/delete');
+});
 
+router.post('/delete', (req, res) => {
   res.redirect('/message/list');
 });
 

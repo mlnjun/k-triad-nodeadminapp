@@ -1,19 +1,14 @@
-
 const express = require('express');
 const router = express.Router();
 
 router.get('/list', (req, res) => {
-  res.render('member/list');
+  res.render('member/list', { members });
 });
-
-
 router.get('/create', (req, res) => {
   res.render('member/create');
 });
 
-
 router.post('/create', (req, res) => {
-
   res.redirect('/member/list');
 });
 
@@ -22,7 +17,15 @@ router.get('/modify', (req, res) => {
 });
 
 router.post('/modify', (req, res) => {
-
   res.redirect('/member/list');
 });
+
+router.get('/delete', (req, res) => {
+  res.render('member/delete');
+});
+
+router.post('/delete', (req, res) => {
+  res.redirect('/member/list');
+});
+
 module.exports = router;
