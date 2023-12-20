@@ -53,11 +53,37 @@ const adminList = [
 
 /* GET home page. */
 router.get("/list", function (req, res, next) {
-  res.render("admin/list", { adminList });
+  res.render("admin/list", { adminList, searchOption: {} });
 });
 
 router.post("/list", function (req, res, next) {
-  res.render("admin/list", { adminList });
+  const { admin_name, admin_id, used_yn_code } = req.body;
+
+  const searchOption = {
+    admin_name,
+    admin_id,
+    used_yn_code,
+  };
+
+  const adminList = [
+    {
+      admin_member_id: 1,
+      company_code: 100,
+      admin_id: "NARA",
+      admin_password: "nara123",
+      admin_name: "백나라",
+      email: "nara@naver.com",
+      telephone: "0101231234",
+      dept_name: "aa",
+      used_yn_code: 1,
+      reg_user_id: 1,
+      edit_user_id: 1,
+      edit_date: "2022-01-01",
+      reg_date: "2022-01-01",
+    },
+  ];
+
+  res.render("admin/list", { adminList, searchOption });
 });
 
 router.get("/create", function (req, res, next) {

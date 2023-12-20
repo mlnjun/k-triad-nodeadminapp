@@ -136,19 +136,33 @@
                 <div class="col-sm-4">
                   <div class="form-group">
                     <label class="control-label" for="OrderNo">관리자명</label>
-                    <input type="text" class="form-control" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="admin_name"
+                      value="<%=searchOption.admin_name%>"
+                    />
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
                     <label class="control-label" for="OrderName">아이디</label>
-                    <input type="text" class="form-control" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="admin_id"
+                      value="<%=searchOption.admin_id%>"
+                    />
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
                     <label class="control-label" for="MobileNo">사용여부</label>
-                    <input type="text" class="form-control" />
+                    <select name="used_yn_code" class="form-control">
+                      <option value="9" <%= searchOption.used_yn_code === '9' ? 'selected' : '' %>>전체</option>
+                      <option value="1"<%= searchOption.used_yn_code === '1' ? 'selected' : '' %>>사용함</option>
+                      <option value="0"<%= searchOption.used_yn_code === '0' ? 'selected' : '' %>>사용안함</option>
+                    </select>
                   </div>
                 </div>
               </div>
