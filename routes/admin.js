@@ -3,60 +3,25 @@
 var express = require("express");
 var router = express.Router();
 
-const adminList = [
-  {
-    admin_member_id: 1,
-    company_code: 100,
-    admin_id: "NARA",
-    admin_password: "nara123",
-    admin_name: "백나라",
-    email: "nara@naver.com",
-    telephone: "0101231234",
-    dept_name: "aa",
-    used_yn_code: 1,
-    reg_user_id: 1,
-    edit_user_id: 1,
-    edit_date: "2022-01-01",
-    reg_date: "2022-01-01",
-  },
-  {
-    admin_member_id: 2,
-    company_code: 200,
-    admin_id: "COCO",
-    admin_password: "coco123",
-    admin_name: "코코",
-    email: "coco@naver.com",
-    telephone: "01011111111",
-    dept_name: "bb",
-    used_yn_code: 0,
-    reg_user_id: 2,
-    edit_user_id: 2,
-    edit_date: "2022-01-02",
-    reg_date: "2022-01-02",
-  },
-  {
-    admin_member_id: 3,
-    company_code: 300,
-    admin_id: "TOM",
-    admin_password: "tom123",
-    admin_name: "톰",
-    email: "tom@naver.com",
-    telephone: "0102222222",
-    dept_name: "cc",
-    used_yn_code: 1,
-    reg_user_id: 3,
-    edit_user_id: 3,
-    edit_date: "2022-01-03",
-    reg_date: "2022-01-03",
-  },
-];
 
-/* GET home page. */
-router.get("/list", function (req, res, next) {
-  res.render("admin/list", { adminList, searchOption: {} });
+var db = require('../models/admin');
+
+
+// 담당 : 백나라
+// http://localhost:3001/admin/list
+router.get('/list', async function (req, res, next) {
+  const adminList = await db.Admin.findAll();
+
+  const searchOption = {
+    admin_name: '',
+    admin_id: '',
+    used_yn_code: '9',
+  };
+
+  res.render('admin/list', { adminList, searchOption });
 });
 
-router.post("/list", function (req, res, next) {
+router.post('/list', async function (req, res, next) {
   const { admin_name, admin_id, used_yn_code } = req.body;
 
   const searchOption = {
@@ -65,46 +30,146 @@ router.post("/list", function (req, res, next) {
     used_yn_code,
   };
 
-  const adminList = [
-    {
-      admin_member_id: 1,
-      company_code: 100,
-      admin_id: "NARA",
-      admin_password: "nara123",
-      admin_name: "백나라",
-      email: "nara@naver.com",
-      telephone: "0101231234",
-      dept_name: "aa",
-      used_yn_code: 1,
-      reg_user_id: 1,
-      edit_user_id: 1,
-      edit_date: "2022-01-01",
-      reg_date: "2022-01-01",
-    },
-  ];
+  const adminList = await db.Article.findAll({ where: { admin_name, admin_id, used_yn_code } });
 
-  res.render("admin/list", { adminList, searchOption });
+  res.render('admin/list', { adminList, searchOption });
 });
 
-router.get("/create", function (req, res, next) {
-  res.render("admin/create", { title: "Express" });
+
+
+router.get('/create', async(req,res)=>{
+  res.render('admin/create');
 });
 
-router.post("/create", function (req, res, next) {
-  res.redirect("/admin/list");
+
+// 담당 : 고민준
+
+var resultMsg = {
+  code: 200,
+  data: {},
+  msg: ""
+}
+
+/*
+-관리자 계정 생성페이지 계정생성 정보 요청과 응답
+호출주소 : http://localhost:3001/admin/create
+POST
+*/
+router.post('/create', async(req,res)=>{
+
+  
+  try{
+    var admin_id = req.body.admin_id;
+    var admin_password = req.body.admin_password;
+    var admin_name = req.body.admin_name;
+    var email = req.body.email;
+    var company_code = req.body.company_code;
+    var telephone = req.body.telephone;
+    var dept_name = req.body.dept_name;
+  
+  
+  
+  
+    var admin_member = {
+        company_code,
+        admin_id,
+        admin_password,
+        admin_name,
+        email,
+        telephone,
+        dept_name,
+        used_yn_code:1,
+        reg_user_id:1,
+        reg_date:Date.now()
+      }
+  
+  
+    await db.Admin.create(admin_member);
+  
+    code = 200;
+    data = admin_member;
+    msg = "새 관리자 등록 완료";
+    
+    res.redirect('/admin/list');
+
+  }catch(err){
+    code = 500
+    data = null
+    msg = "서버 관리자에게 문의하세요"
+  }
 });
 
-router.get("/modify/:aid", function (req, res, next) {
-  res.render("admin/modify", { admin: adminList[0] });
+
+/*
+-관리자 계정 수정 페이지 호출
+호출주소 : http://localhost:3001/admin/modify/A
+GET
+*/
+router.get('/modify/:aid', async(req,res)=>{
+  var admin_member_id = req.params.aid;
+
+  // admin id 데이터로 DB정보 찾기
+  var admin_member = await db.Admin.findOne({where:{admin_member_id:admin_member_id}});
+
+  
+
+  res.render('admin/modify', {admin_member});
 });
 
-router.post("/modify/:aid", function (req, res, next) {
-  res.redirect("/admin/list");
+
+/*
+-관리자 계정 수정 페이지 수정 데이터 요청과 응답
+호출주소 : http://localhost:3001/admin/modify
+POST
+*/
+router.post('/modify/:aid', async(req,res)=>{
+  // 입력 받기
+  var admin_member_id = req.params.aid;
+  var admin_id = req.body.admin_id;
+  var admin_password = req.body.admin_password;
+  var admin_name = req.body.admin_name;
+  var email = req.body.email;
+  var company_code = req.body.company_code;
+  var telephone = req.body.telephone;
+  var dept_name = req.body.dept_name;
+
+  // 받은 입력 객체로 만들기
+  var admin_member = {
+      company_code,
+      admin_id,
+      admin_password,
+      admin_name,
+      email,
+      telephone,
+      dept_name,
+      used_yn_code:1,
+      reg_user_id:1,
+      reg_date:Date.now()
+    }
+
+    // DB 데이터 수정하기
+    await db.Admin.update(admin_member, {where:{admin_member_id}});
+
+  res.redirect('/admin/list');
 });
 
-router.get("/delete", function (req, res, next) {
-  const adminIdx = req.query.aid;
-  res.redirect("/admin/list");
+
+// 담당 : 이용혁
+router.get('/delete', async (req, res) => {
+  try {
+    const { admin_id } = req.query;
+
+    const result = await db.Admin.destroy({ where: { admin_id } });
+
+    if (result) {
+      res.send('관리자 계정이 삭제되었습니다.');
+    } else {
+      res.status(400).send('관리자 계정 삭제에 실패했습니다.');
+    }
+  } catch (error) {
+    console.error('관리자 계정 삭제 중 오류 발생:', error);
+    res.status(500).send('내부 서버 오류');
+  }
 });
 
 module.exports = router;
