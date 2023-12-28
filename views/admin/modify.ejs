@@ -20,7 +20,7 @@
 
         <!--우측 콘텐츠 영역 -->
         <div class="wrapper wrapper-content">
-          <form action="/admin/modify/<%=admin.admin_member_id%>" method="post">
+          <form action="/admin/modify/<%=adminList.admin_member_id%>" method="post">
             <div class="ibox-content m-b-sm border-bottom">
               <div class="row">
                 <div class="col-sm-4">
@@ -30,7 +30,7 @@
                       type="text"
                       class="form-control"
                       name="admin_id"
-                      value="<%=admin.admin_id%>"
+                      value="<%=adminList.admin_id%>"
                       required
                     />
                   </div>
@@ -42,7 +42,7 @@
                       type="password"
                       class="form-control"
                       name="admin_password"
-                      value="<%=admin.admin_password%>"
+                      value="<%=adminList.admin_password%>"
                       required
                     />
                   </div>
@@ -55,7 +55,7 @@
                       type="text"
                       class="form-control"
                       name="admin_name"
-                      value="<%=admin.admin_name%>"
+                      value="<%=adminList.admin_name%>"
                       required
                     />
                   </div>
@@ -70,7 +70,7 @@
                       type="text"
                       class="form-control"
                       name="email"
-                      value="<%=admin.email%>"
+                      value="<%=adminList.email%>"
                       required
                     />
                   </div>
@@ -82,7 +82,7 @@
                       type="text"
                       class="form-control"
                       name="telephone"
-                      value="<%=admin.telephone%>"
+                      value="<%=adminList.telephone%>"
                       required
                     />
                   </div>
@@ -95,7 +95,7 @@
                       type="text"
                       class="form-control"
                       name="company_code"
-                      value="<%=admin.company_code%>"
+                      value="<%=adminList.company_code%>"
                       required
                     />
                   </div>
@@ -110,7 +110,7 @@
                       type="text"
                       class="form-control"
                       name="dept_name"
-                      value="<%=admin.dept_name%>"
+                      value="<%=adminList.dept_name%>"
                       required
                     />
                   </div>
@@ -122,7 +122,7 @@
                       type="text"
                       class="form-control"
                       name="admin_member_id"
-                      value="<%=admin.admin_member_id%>"
+                      value="<%=adminList.admin_member_id%>"
                       readonly
                     />
                   </div>
@@ -134,7 +134,7 @@
                       type="text"
                       class="form-control"
                       name="reg_date"
-                      value="<%=admin.reg_date%>"
+                      value="<%=adminList.reg_date%>"
                       readonly
                     />
                   </div>

@@ -109,11 +109,11 @@ router.get('/modify/:aid', async(req,res)=>{
   var admin_member_id = req.params.aid;
 
   // admin id 데이터로 DB정보 찾기
-  var admin_member = await db.Admin.findOne({where:{admin_member_id:admin_member_id}});
+  var adminList = await db.Admin.findOne({where:{admin_member_id:admin_member_id}});
 
   
 
-  res.render('admin/modify', {admin_member});
+  res.render('admin/modify', {adminList});
 });
 
 
