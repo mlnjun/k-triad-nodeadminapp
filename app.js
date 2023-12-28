@@ -13,7 +13,13 @@ var articleRouter = require('./routes/article');
 var channelRouter = require('./routes/channel');
 const memberRouter = require('./routes/member');
 const messageRouter = require('./routes/message');
+
+
+var sequelize = require('./models/index.js').sequelize;
+
 var app = express();
+
+sequelize.sync();
 
 
 // view engine setup

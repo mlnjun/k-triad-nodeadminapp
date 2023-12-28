@@ -4,7 +4,7 @@ var express = require("express");
 var router = express.Router();
 
 
-var db = require('../models/admin');
+var db = require('../models/index');
 
 
 // 담당 : 백나라

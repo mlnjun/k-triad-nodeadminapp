@@ -17,6 +17,6 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 // 모델 연결
-db.Admin = require("./models/admin")(sequelize, Sequelize);
+db.Admin = require("./admin")(sequelize, Sequelize);
 
 module.exports = db;
