@@ -30,7 +30,7 @@ router.post('/list', async function (req, res, next) {
     used_yn_code,
   };
 
-  const adminList = await db.Article.findAll({ where: { admin_name, admin_id, used_yn_code } });
+  const adminList = await db.Article.findAll({ where: { admin_name } });
 
   res.render('admin/list', { adminList, searchOption });
 });
