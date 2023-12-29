@@ -61,6 +61,7 @@ router.post("/create", async (req, res) => {
     var company_code = req.body.company_code;
     var telephone = req.body.telephone;
     var dept_name = req.body.dept_name;
+    var used_yn_code = req.body.used_yn_code;
 
     var admin_member = {
       company_code,
@@ -70,7 +71,7 @@ router.post("/create", async (req, res) => {
       email,
       telephone,
       dept_name,
-      used_yn_code: 1,
+      used_yn_code,
       reg_user_id: 1,
       reg_date: Date.now(),
     };
@@ -120,6 +121,7 @@ router.post("/modify/:aid", async (req, res) => {
   var company_code = req.body.company_code;
   var telephone = req.body.telephone;
   var dept_name = req.body.dept_name;
+  var used_yn_code = req.body.used_yn_code;
 
   // 받은 입력 객체로 만들기
   var admin_member = {
@@ -130,7 +132,7 @@ router.post("/modify/:aid", async (req, res) => {
     email,
     telephone,
     dept_name,
-    used_yn_code: 1,
+    used_yn_code,
     reg_user_id: 1,
     reg_date: Date.now(),
     edit_user_id: 2,
