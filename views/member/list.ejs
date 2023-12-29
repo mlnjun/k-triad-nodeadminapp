@@ -31,11 +31,11 @@
                             <div class="form-group">
                                 <label class="control-label" for="OrderNo">계정 유형</label>
                                 <select class="form-control">
-                                  <!-- board_type_code -->
-                                  <option value="0">선택</option>
-                                  <option value="1">단체</option>
-                                  <option value="2">개인</option>
-                              </select>
+                                    <!-- board_type_code -->
+                                    <option value="0">선택</option>
+                                    <option value="1">단체</option>
+                                    <option value="2">개인</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -48,7 +48,7 @@
                             <div class="form-group">
                                 <label class="control-label" for="OrderName">가입 상태</label>
                                 <select class="form-control">
-                                  <!-- article_type_code -->
+                                    <!-- article_type_code -->
                                     <option value="0">선택</option>
                                     <option value="1">활성화</option>
                                     <option value="2">비활성화</option>
@@ -85,29 +85,29 @@
 
                                     
                                         <tbody class="hoverTblBody">
-                                            <% for(let i=0; i<member.length; i++) { %>
+                                            <% for(let i=0; i<memberList.length; i++) { %>
                                             <tr>
-                                                <td><a href="/member/modify/<%=member[i].member_id%>"><%=member[i].email%></a></td>
-                                                <td><%=member[i].member_password%></td>
-                                                <td><%=member[i].name%></td>
-                                                <td><%=member[i].birth_date%></td>
-                                                <td><%=member[i].telephone%></td>
+                                                <td><a href="/member/modify/<%=memberList[i].member_id%>"><%=memberList[i].email%></a></td>
+                                                <td><%=memberList[i].member_password%></td>
+                                                <td><%=memberList[i].name%></td>
+                                                <td><%=memberList[i].birth_date%></td>
+                                                <td><%=memberList[i].telephone%></td>
                                                 <td>
-                                                  <% if (member[i].entry_type_code === 1) {%>
+                                                <% if (memberList[i].entry_type_code === 1) {%>
                                                     단체
-                                                  <%}%>
-                                                  <% if (member[i].entry_type_code === 2) {%>
+                                                <%}%>
+                                                <% if (memberList[i].entry_type_code === 2) {%>
                                                     개인
-                                                  <%}%>
+                                                <%}%>
                                                 </td>
                                                 <td>
-                                                  <% if (member[i].use_state_code === 1) {%>
+                                                <% if (memberList[i].use_state_code === 1) {%>
                                                     활성화
-                                                  <%}%>
-                                                  <% if (member[i].use_state_code === 2) {%>
+                                                <%}%>
+                                                <% if (memberList[i].use_state_code === 2) {%>
                                                     비활성화
-                                                  <%}%></td>
-                                                <td><%=member[i].reg_date%></td>
+                                                <%}%></td>
+                                                <td><%=memberList[i].reg_date%></td>
                                             </tr>
                                             <% } %>
                                         </tbody>
