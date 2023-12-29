@@ -1,141 +1,153 @@
+<!--우측 콘텐츠 헤더영역 -->
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>관리자 신규 등록</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a href="/"> Home ></a>
+      </li>
+      <li>
+        <a> 관리자 등록 ></a>
+      </li>
+      <li class="active">
+        <strong>등록</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-lg-2"></div>
+</div>
 
-        <!--우측 콘텐츠 헤더영역 -->
-        <div class="row wrapper border-bottom white-bg page-heading">
-          <div class="col-lg-10">
-            <h2>관리자 신규 등록</h2>
-            <ol class="breadcrumb">
-              <li>
-                <a href="/"> Home ></a>
-              </li>
-              <li>
-                <a> 관리자 등록 ></a>
-              </li>
-              <li class="active">
-                <strong>등록</strong>
-              </li>
-            </ol>
+<!--우측 콘텐츠 영역 -->
+<div class="wrapper wrapper-content">
+  <form action="/admin/create" method="post">
+    <div class="ibox-content m-b-sm border-bottom">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="control-label">관리자고유번호</label>
+            <input
+              type="text"
+              class="form-control"
+              name="admin_member_id"
+              readonly
+            />
           </div>
-          <div class="col-lg-2"></div>
         </div>
-
-        <!--우측 콘텐츠 영역 -->
-        <div class="wrapper wrapper-content">
-          <form action="/admin/create" method="post">
-            <div class="ibox-content m-b-sm border-bottom">
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label class="control-label">아이디</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="admin_id"
-                      required
-                    />
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label class="control-label">암호</label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      name="admin_password"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label class="control-label">성명</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="admin_name"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label class="control-label">메일주소</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="email"
-                      required
-                    />
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label class="control-label">전화번호</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="telephone"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label class="control-label">소속회사코드</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="company_code"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label class="control-label">부서명</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="dept_name"
-                      required
-                    />
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label class="control-label">관리자고유번호</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="admin_member_id"
-                      readonly
-                    />
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="form-group">
-                    <label class="control-label">등록일시</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      name="reg_date"
-                      readonly
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div class="text-center">
-                <button type="submit" class="btn btn-primary">저장</button>
-                <a href="/admin/list" class="btn btn-info">목록</a>
-              </div>
-            </div>
-          </form>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="control-label">아이디</label>
+            <input type="text" class="form-control" name="admin_id" required />
+          </div>
         </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="control-label">암호</label>
+            <input
+              type="password"
+              class="form-control"
+              name="admin_password"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="control-label">성명</label>
+            <input
+              type="text"
+              class="form-control"
+              name="admin_name"
+              required
+            />
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="control-label">메일주소</label>
+            <input type="text" class="form-control" name="email" required />
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="control-label">전화번호</label>
+            <input type="text" class="form-control" name="telephone" required />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="control-label">소속회사코드</label>
+            <input
+              type="text"
+              class="form-control"
+              name="company_code"
+              required
+            />
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="control-label">부서명</label>
+            <input type="text" class="form-control" name="dept_name" required />
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label class="control-label" for="MobileNo">사용여부</label>
+            <select name="used_yn_code" class="form-control">
+              <option value="1">사용함</option>
+              <option value="0">사용안함</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="control-label">등록자 고유번호</label>
+            <input
+              type="text"
+              class="form-control"
+              name="reg_user_id"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="control-label">등록일시</label>
+            <input type="text" class="form-control" name="reg_date" readonly />
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="control-label">수정자 고유번호</label>
+            <input
+              type="text"
+              class="form-control"
+              name="edit_user_id"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="control-label">수정일자</label>
+            <input type="text" class="form-control" name="edit_date" readonly />
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">저장</button>
+        <a href="/admin/list" class="btn btn-info">목록</a>
+      </div>
+    </div>
+  </form>
+</div>
