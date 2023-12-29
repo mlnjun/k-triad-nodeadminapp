@@ -146,12 +146,13 @@ router.post("/modify/:aid", async (req, res) => {
 // 담당 : 이용혁
 router.get("/delete", async (req, res) => {
   try {
-    const { admin_id } = req.query;
+    const admin_member_id = req.query.aid;
 
-    const result = await db.Admin.destroy({ where: { admin_id } });
+    var deletedCnt = await db.Admin.destroy({ where: { admin_member_id } });
 
-    if (result) {
-      res.send("관리자 계정이 삭제되었습니다.");
+    if (deletedCnt) {
+      // res.send("관리자 계정이 삭제되었습니다.");
+      res.redirect("/admin/list");
     } else {
       res.status(400).send("관리자 계정 삭제에 실패했습니다.");
     }
