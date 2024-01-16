@@ -3,12 +3,21 @@ var router = express.Router();
 
 var db = require("../models/index");
 
+var bcrypt = require('bcryptjs');
+const session = require("express-session");
+
 /*
 -메인 페이지 요청 라우팅 메소드
 -호출 주소 : http://localhost:3001
 */
 router.get("/", function (req, res, next) {
-  res.render("index");
+  // 로그인정보 쿠키 유무 확인
+  if(req.session.loginAdmin == undefined){
+    res.redirect('/login');
+  }else{
+    var sessionData = req.session.loginAdmin;
+    res.render("index", {admin_member:sessionData} );
+  }
 });
 
 /*
@@ -41,9 +50,28 @@ router.post("/login", async (req, res) => {
     // 아이디 틀림
     resultMsg = "해당 아이디가 존재하지 않습니다.";
   } else {
+    // 비밀번호 컴페어
+    // var compaeredPW = await bcrypt.compare(admin_password, admin_member.admin_password);
+
+
     if (admin_member.admin_password == admin_password) {
-      // 로그인 성공
-      res.redirect("/");
+      // session에 저장할 데이터 객체
+      let adminSessionData = {
+        admin_member_id:admin_member.admin_member_id,
+        admin_id:admin_member.admin_id,
+        admin_name:admin_member.admin_name,
+        company_code:admin_member.company_code,
+        dept_name:admin_member.dept_name
+      };
+
+      // 세션에 보낼 데이터 지정
+      req.session.loginAdmin = adminSessionData;
+
+      // 세션에 데이터 보내기 + 콜백함수
+      req.session.save(function(){
+        // 로그인 성공
+        res.redirect("/");
+      })
     } else {
       // 비밀번호 틀림
       resultMsg = "해당 아이디의 비밀번호가 아닙니다.";

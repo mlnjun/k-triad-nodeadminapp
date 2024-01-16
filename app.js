@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
 
+// express-session 패키지 참조
+var session = require('express-session');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -20,6 +23,20 @@ var sequelize = require('./models/index.js').sequelize;
 var app = express();
 
 sequelize.sync();
+
+// 서버세션
+app.use(
+  session({
+    resave: false, //매번 세션 강제 저장
+    saveUninitialized: true,
+    secret: "testsecret",  // 암호화할때 사용하는 salt값
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      maxAge:1000 * 60 * 5 //5분동안 서버세션을 유지하겠다.(1000은 1초)
+    },
+  }),
+);
 
 
 // view engine setup
