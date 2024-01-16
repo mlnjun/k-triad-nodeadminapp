@@ -51,10 +51,10 @@ router.post("/login", async (req, res) => {
     resultMsg = "해당 아이디가 존재하지 않습니다.";
   } else {
     // 비밀번호 컴페어
-    // var compaeredPW = await bcrypt.compare(admin_password, admin_member.admin_password);
+    var compaeredPW = await bcrypt.compare(admin_password, admin_member.admin_password);
 
 
-    if (admin_member.admin_password == admin_password) {
+    if (compaeredPW) {  // 비밀번호 동일 시 진행
       // session에 저장할 데이터 객체
       let adminSessionData = {
         admin_member_id:admin_member.admin_member_id,
