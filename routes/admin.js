@@ -3,12 +3,19 @@
 var express = require("express");
 var router = express.Router();
 
+const bcrypt = require("bcryptjs");
+const AES = require("mysql-aes");
+
 var db = require("../models/index");
 
 // 담당 : 백나라
 // http://localhost:3001/admin/list
 router.get("/list", async function (req, res, next) {
   const adminList = await db.Admin.findAll();
+
+  adminList.forEach((admin) => {
+    admin.telephone = AES.decrypt(admin.telephone, process.env.MYSQL_AES_KEY);
+  });
 
   res.render("admin/list", { adminList, searchOption: {} });
 });
@@ -63,27 +70,32 @@ router.post("/create", async (req, res) => {
     var dept_name = req.body.dept_name;
     var used_yn_code = req.body.used_yn_code;
 
+    // 단방향 암호화 해시 알고리즘 적용 사용자 암호 암호화 적용
+    const encryptedPassword = await bcrypt.hash(admin_password, 12);
+    var encryptTelephone = AES.encrypt(telephone, process.env.MYSQL_AES_KEY);
+
     var admin_member = {
       company_code,
       admin_id,
-      admin_password,
+      admin_password: encryptedPassword,
       admin_name,
       email,
-      telephone,
+      telephone: encryptTelephone,
       dept_name,
       used_yn_code,
       reg_user_id: 1,
       reg_date: Date.now(),
     };
 
-    await db.Admin.create(admin_member);
+    const registeredAdminMember = await db.Admin.create(admin_member);
 
     code = 200;
-    data = admin_member;
+    data = registeredAdminMember;
     msg = "새 관리자 등록 완료";
 
     res.redirect("/admin/list");
   } catch (err) {
+    console.log(err);
     code = 500;
     data = null;
     msg = "서버 관리자에게 문의하세요";
