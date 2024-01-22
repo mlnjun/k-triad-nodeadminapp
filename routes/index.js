@@ -29,6 +29,21 @@ router.get("/", isloggedIn, function (req, res, next) {
   res.render("index", {admin_member:sessionData} );
 });
 
+
+// 로그아웃 라우팅 메소드
+// http://localhost:3001/logout
+router.get('/logout', (req,res,next)=>{
+  req.logout(function(err){
+    if(err){
+      return next(err);
+    }
+
+    req.session.destroy();
+    res.redirect('/login');
+  })
+});
+
+
 /*
 -로그인 페이지 요청 라우팅 메소드
 -호출 주소 : http://localhost:3001/login
@@ -42,6 +57,7 @@ router.get("/login", isNotloggedIn, async (req, res) => {
     loginError:req.flash('loginError')
   });
 });
+
 
 /*
 -로그인 페이지 요청과 응답 라우팅 메소드
