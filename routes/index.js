@@ -3,14 +3,14 @@ var router = express.Router();
 
 var db = require("../models/index");
 
-var bcrypt = require('bcryptjs');
+var bcrypt = require("bcryptjs");
 const session = require("express-session");
 
 // passport 패키지 참조
 const passport = require("passport");
 
 // passport 인증 확인 미들웨어 참조
-const {isloggedIn, isNotloggedIn} = require('./passportAuthMiddleware');
+const { isloggedIn, isNotloggedIn } = require("./passportAuthMiddleware");
 
 /*
 -메인 페이지 요청 라우팅 메소드
@@ -26,7 +26,7 @@ router.get("/", isloggedIn, function (req, res, next) {
   // }
 
   var sessionData = req.session.passport.user;
-  res.render("index", {admin_member:sessionData} );
+  res.render("index", { admin_member: sessionData });
 });
 
 /*
@@ -39,7 +39,7 @@ router.get("/login", isNotloggedIn, async (req, res) => {
     resultMsg: "",
     admin_id: "",
     admin_password: "",
-    loginError:req.flash('loginError')
+    loginError: req.flash("loginError"),
   });
 });
 
@@ -61,27 +61,30 @@ router.post("/login", async (req, res) => {
     resultMsg = "해당 아이디가 존재하지 않습니다.";
   } else {
     // 비밀번호 컴페어
-    var compaeredPW = await bcrypt.compare(admin_password, admin_member.admin_password);
+    var compaeredPW = await bcrypt.compare(
+      admin_password,
+      admin_member.admin_password
+    );
 
-
-    if (compaeredPW) {  // 비밀번호 동일 시 진행
+    if (compaeredPW) {
+      // 비밀번호 동일 시 진행
       // session에 저장할 데이터 객체
       let adminSessionData = {
-        admin_member_id:admin_member.admin_member_id,
-        admin_id:admin_member.admin_id,
-        admin_name:admin_member.admin_name,
-        company_code:admin_member.company_code,
-        dept_name:admin_member.dept_name
+        admin_member_id: admin_member.admin_member_id,
+        admin_id: admin_member.admin_id,
+        admin_name: admin_member.admin_name,
+        company_code: admin_member.company_code,
+        dept_name: admin_member.dept_name,
       };
 
       // 세션에 보낼 데이터 지정
       req.session.loginAdmin = adminSessionData;
 
       // 세션에 데이터 보내기 + 콜백함수
-      req.session.save(function(){
+      req.session.save(function () {
         // 로그인 성공
         res.redirect("/");
-      })
+      });
     } else {
       // 비밀번호 틀림
       resultMsg = "해당 아이디의 비밀번호가 아닙니다.";
@@ -91,6 +94,31 @@ router.post("/login", async (req, res) => {
   if (resultMsg !== "") {
     res.render("login", { layout: false, resultMsg, admin_id, admin_password });
   }
+});
+
+router.post("/passportLogin", async (req, res, next) => {
+  passport.authenticate("local", (authError, user, info) => {
+    //인증에러 발생시
+    if (authError) {
+      console.error(authError);
+      return next(authError);
+    }
+
+    if (!user) {
+      req.flash("loginError", info.message);
+      return res.redirect("/login");
+    }
+
+    return req.login(user, (loginError) => {
+      if (loginError) {
+        console.error(loginError);
+        return next(loginError);
+      }
+
+      //정상 로그인시 메인페이지 이동
+      return res.redirect("/");
+    });
+  })(req, res, next);
 });
 
 module.exports = router;
