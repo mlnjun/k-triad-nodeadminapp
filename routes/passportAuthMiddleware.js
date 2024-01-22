@@ -1,8 +1,8 @@
-
+const passport = require('passport');
 
 // 로그인 인증 확인
 exports.isLoggedIn = (req,res,next)=>{
-  if(req.isAuthenticated){
+  if(req.isAuthenticated()){
     // 로그인 인증된 상태
     next();
   }else{
@@ -14,7 +14,7 @@ exports.isLoggedIn = (req,res,next)=>{
 
 // 로그인 비인증 확인
 exports.isNotLoggedIn = (req,res,next)=>{
-  if(!req.isAuthenticated){
+  if(!req.isAuthenticated()){
     // 비인증 상태
     next();
   }else{

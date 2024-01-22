@@ -66,5 +66,14 @@
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.js"></script>
+
+    <script>
+      var loginError = "<%=loginError%>";
+
+      // 패스포트 방식 로그인 에러
+      if(loginError > 0){
+        alert(loginError);
+      }
+    </script>
   </body>
 </html>

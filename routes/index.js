@@ -4,7 +4,7 @@ var router = express.Router();
 var db = require("../models/index");
 
 var bcrypt = require("bcryptjs");
-const session = require("express-session");
+// const session = require("express-session");
 
 // passport 패키지 참조
 const passport = require("passport");
@@ -16,7 +16,7 @@ const { isLoggedIn, isNotLoggedIn } = require("./passportAuthMiddleware");
 -메인 페이지 요청 라우팅 메소드
 -호출 주소 : http://localhost:3001
 */
-router.get("/", isLoggedIn, function (req, res, next) {
+router.get("/", isLoggedIn, async (req, res, next) => {
   // 로그인정보 쿠키 유무 확인
   // if(req.session.loginAdmin == undefined){
   //   res.redirect('/login');
@@ -126,7 +126,7 @@ router.post("/passportLogin", isNotLoggedIn, async (req, res, next) => {
       }
 
       //정상 로그인시 메인페이지 이동
-      return res.redirect("/");
+      return res.redirect('/');
     });
   })(req, res, next);
 });

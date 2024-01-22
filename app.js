@@ -11,7 +11,7 @@ require('dotenv').config();
 
 var expressLayouts = require('express-ejs-layouts');
 
-// express-session, redis, connet-redis 패키지 참조
+// express-session 패키지 참조
 const redis = require("redis");
 var session = require('express-session');
 let RedisStore = require("connect-redis")(session);
@@ -21,12 +21,13 @@ let redisClient = redis.createClient({
   host: "127.0.0.1",
   port: 6379,
   db: 0,
-  password: process.env.REDIS_PW,
+  password: "test12345",
 });
 
 // passport
 const passport = require('passport');
 const passportConfig = require('./passport/index.js');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -48,7 +49,8 @@ sequelize.sync();
 
 passportConfig(passport);
 
-// 분산서버 세션
+
+// 분산 서버세션
 app.use(
   session({
     store: new RedisStore({ client: redisClient }),
@@ -64,7 +66,6 @@ app.use(
   })
 );
 
-
 // 서버세션
 // app.use(
 //   session({
@@ -74,10 +75,15 @@ app.use(
 //     cookie: {
 //       httpOnly: true,
 //       secure: false,
-//       maxAge:1000 * 60 * 5 //5분동안 서버세션을 유지하겠다.(1000은 1초)
+//       maxAge:1000 * 60 * 1440 //24시간동안 서버세션을 유지(1000은 1초)
 //     },
 //   }),
 // );
+
+//패스포트-세션 초기화 : express session 뒤에 설정
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 
 // view engine setup
