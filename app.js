@@ -3,10 +3,30 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
+// 휘발성 데이터를 특정 페이지에 전달하는 패키지
+var flash = require('connect-flash');
+
+require('dotenv').config();
+
 var expressLayouts = require('express-ejs-layouts');
 
-// express-session 패키지 참조
+// express-session, redis, connet-redis 패키지 참조
+const redis = require("redis");
 var session = require('express-session');
+let RedisStore = require("connect-redis")(session);
+
+// Redis 클라이언트 정보 추후 .env 설정 
+let redisClient = redis.createClient({
+  host: "127.0.0.1",
+  port: 6379,
+  db: 0,
+  password: process.env.REDIS_PW,
+});
+
+// passport
+const passport = require('passport');
+const passportConfig = require('./passport/index.js');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -22,22 +42,45 @@ var sequelize = require('./models/index.js').sequelize;
 
 var app = express();
 
+app.use(flash());
+
 sequelize.sync();
 
-// 서버세션
+passportConfig(passport);
+
+// 분산서버 세션
 app.use(
   session({
-    resave: false, //매번 세션 강제 저장
+    store: new RedisStore({ client: redisClient }),
     saveUninitialized: true,
-    secret: "testsecret",  // 암호화할때 사용하는 salt값
+    secret: process.env.REDIS_SECRET,
+    resave: false,
     cookie: {
-      httpOnly: true,
-      secure: false,
-      maxAge:1000 * 60 * 5 //5분동안 서버세션을 유지하겠다.(1000은 1초)
-    },
-  }),
+    httpOnly: true,
+    secure: false,
+  },
+  ttl : 60 * 60 * 24, //Redis DB에서 세션정보가 사라지게 할지에 대한 만료시간설정
+  token: process.env.REDIS_TOKEN_KEY,
+  })
 );
 
+
+// 서버세션
+// app.use(
+//   session({
+//     resave: false, //매번 세션 강제 저장
+//     saveUninitialized: true,
+//     secret: "testsecret",  // 암호화할때 사용하는 salt값
+//     cookie: {
+//       httpOnly: true,
+//       secure: false,
+//       maxAge:1000 * 60 * 5 //5분동안 서버세션을 유지하겠다.(1000은 1초)
+//     },
+//   }),
+// );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
