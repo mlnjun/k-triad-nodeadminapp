@@ -10,13 +10,13 @@ const session = require("express-session");
 const passport = require("passport");
 
 // passport 인증 확인 미들웨어 참조
-const { isloggedIn, isNotloggedIn } = require("./passportAuthMiddleware");
+const { isLoggedIn, isNotLoggedIn } = require("./passportAuthMiddleware");
 
 /*
 -메인 페이지 요청 라우팅 메소드
 -호출 주소 : http://localhost:3001
 */
-router.get("/", isloggedIn, function (req, res, next) {
+router.get("/", isLoggedIn, function (req, res, next) {
   // 로그인정보 쿠키 유무 확인
   // if(req.session.loginAdmin == undefined){
   //   res.redirect('/login');
@@ -32,7 +32,7 @@ router.get("/", isloggedIn, function (req, res, next) {
 
 // 로그아웃 라우팅 메소드
 // http://localhost:3001/logout
-router.get('/logout', (req,res,next)=>{
+router.get('/logout', isLoggedIn, (req,res,next)=>{
   req.logout(function(err){
     if(err){
       return next(err);
@@ -48,14 +48,8 @@ router.get('/logout', (req,res,next)=>{
 -로그인 페이지 요청 라우팅 메소드
 -호출 주소 : http://localhost:3001/login
 */
-router.get("/login", isNotloggedIn, async (req, res) => {
-  res.render("login", {
-    layout: false,
-    resultMsg: "",
-    admin_id: "",
-    admin_password: "",
-    loginError: req.flash("loginError"),
-  });
+router.get("/login", isNotLoggedIn, async(req, res) => {
+  res.render("login", {layout: false,resultMsg: "",admin_id: "",admin_password: "",loginError: req.flash("loginError"),});
 });
 
 
@@ -112,7 +106,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/passportLogin", async (req, res, next) => {
+router.post("/passportLogin", isNotLoggedIn, async (req, res, next) => {
   passport.authenticate("local", (authError, user, info) => {
     //인증에러 발생시
     if (authError) {

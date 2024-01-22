@@ -1,7 +1,7 @@
 
 
 // 로그인 인증 확인
-exports.isloggedIn = (req,res,next)=>{
+exports.isLoggedIn = (req,res,next)=>{
   if(req.isAuthenticated){
     // 로그인 인증된 상태
     next();
